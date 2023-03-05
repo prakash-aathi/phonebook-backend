@@ -84,6 +84,20 @@ app.post("/api/persons", (req, res,token) => {
     console.log(token);
 })
 
+app.put("/api/persons/:id", (req, res) => { 
+    const id = Number(req.params.id);
+    const body = req.body;
+    const note = notes.find(note => note.id === id);
+    if (note) {
+        note.name = body.name;
+        note.number = body.number;
+        res.status(200).json(note);
+    }
+    else { 
+        res.status(404).end();
+    }
+})
+
 const port = 3003;
 app.listen(port, () => {
     console.log("Server is running on port " + port);
